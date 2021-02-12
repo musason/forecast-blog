@@ -1,0 +1,21 @@
+{{> navbar this}}
+
+
+
+<form action="/search" method="POST">
+<label for="exampleDataList" class="form-label">Datalist example</label>
+<input name="seriesName" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+<button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+{{#if searchResult}}
+  <div>
+    {{#each searchResult}}
+    <a href="{{this.id}}">
+    <h1>{{this.name}}</h1>
+    <img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}" alt="">
+    </a>
+    {{/each}}
+  </div>
+{{/if}}

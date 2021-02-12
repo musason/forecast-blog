@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const UserModel = require("../models/UserModel.js");
 const bcrypt = require("bcryptjs");
+const axios = require("axios").default;
+
 
 /* GET home page */
 router.get("/", (req, res, next) => {
@@ -77,8 +79,11 @@ const checkLoggin = (req, res, next) => {
 
 router.get("/profile/:id", checkLoggin, (req, res, next) => {
   let id = req.params.id;
-  let nickname = req.session.user.nickname;
-  res.render("profile", { nickname });
+  UserModel.findById(id)
+    .then((result) => {
+      res.render("profile", {result});
+    })
+    .catch(() => {});
 });
 
 router.get("/logout", checkLoggin, (req, res, next) => {

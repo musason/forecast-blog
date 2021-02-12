@@ -11,26 +11,7 @@
    </head>
 
    <body>
-         <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-      <ul>
-        <li>
-        <a class="navbar-brand" href="/">Home</a>
-        {{#unless nickname}}
-        <a class="navbar-brand" href="/signin">Sign In</a>
-        <a class="navbar-brand" href="/signup">Sign Up</a>
-        {{/unless}}
-        {{#if nickname}}
-        <a class="navbar-brand" href="/profile">Your Profile</a>
-        <a class="navbar-brand" href="/tvblog">Tv Blog</a>
-        <a class="navbar-brand" href="/forecast">Forecast</a>
-        <a class="navbar-brand" href="/private">Private</a>
-        <a class="navbar-brand" href="/logout">Log out</a>
-        {{/if}}
-        </li>
-      </ul>
-        
-    </nav>
-
+         
 
       {{{body}}}
       <script src="/js/script.js"></script>
