@@ -13,7 +13,8 @@ const checkLoggin = (req, res, next) => {
 };
 
 router.get("/search",checkLoggin, (req, res, next) => {
-  res.render("search.hbs");
+  let result = req.session.user;
+  res.render("search.hbs", {result});
 });
 
 router.post('/search', checkLoggin, (req, res, next) => {
@@ -22,8 +23,7 @@ router.post('/search', checkLoggin, (req, res, next) => {
   axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`)
     .then((result) => {
       let searchResult = result.data.results
-      // console.log(result.data.results[0])
-      res.render('search', {searchResult})
+      res.render('search', {searchResult, result})
     })
     .catch((err) => {
       next(err)

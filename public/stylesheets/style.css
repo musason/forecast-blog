@@ -1,11 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
-
-a {
-  color: #00b7ff; }
-
-h1 {
-  color: 15px; }
+  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif; 
+}
 
 /*# sourceMappingURL=style.css.map */
+
+.navigation-align {
+  margin-left: auto;
+}
+
+.entire-nav {
+  font-size: 1.2rem;
+  margin: 0 5rem;
+}
+
+.except-nav {
+  margin: 2rem 5rem;
+  text-align: center;
+}
+
+.singin-main {
+  margin: 8rem 28rem;
+}
+
+.singin-main form {
+  margin: 2rem 2rem;
+}
+
+.singin-main form input:focus {
+  outline: none !important;
+  border:1px solid #e3f2fd;
+  box-shadow: 0 0 10px #719ECE;
+}
+
+.singin-main form button {
+  margin-top: 2rem;
+  padding: 0.2rem 6.65rem;
+}

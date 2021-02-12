@@ -1,20 +1,19 @@
-{{> signinNav this}}
-
-<h1>Sign In</h1>
+<div class="singin-main">
+<h1>Please sign in</h1>
 
 <form action="/signin" method="POST">
     <div class="mb-3">
-      <label for="validationCustomUsername" class="form-label">Nickname</label>
-  <input name="nickname" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>    <div id="emailHelp" class="form-text">Type in your Username here</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input name="password"type="password" class="form-control" id="exampleInputPassword1">
-    <div id="emailHelp" class="form-text">Type in your Password here</div>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
+      {{!-- <label for="validationCustomUsername" class="form-label">Nickname</label> --}}
+      <input name="nickname" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required="required" placeholder="Nick-Name">
+      {{!-- <label for="exampleInputPassword1" class="form-label">Password</label> --}}
+      <input name="password"type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+      <button type="submit" class="btn btn-lg btn-primary">Sign in</button>
+    </div>
 </form>
 
 {{#if msg}}
     <div class="alert alert-danger" role="alert">{{msg}}</div>
 {{/if}}
+
+</div>
+
