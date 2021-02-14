@@ -1,13 +1,9 @@
-{{> navbar this}}
-
-
-
+<div class="search-form">
 <form action="/search" method="POST">
-<label for="exampleDataList" class="form-label">Datalist example</label>
-<input name="seriesName" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+<input name="seriesName" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search Tv-Series...">
 <button type="submit" class="btn btn-primary">Search</button>
 </form>
-
+</div>
 
 {{#each searchResult}}
   <div>

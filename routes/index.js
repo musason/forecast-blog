@@ -7,7 +7,13 @@ const axios = require("axios").default;
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-  res.render("index");
+  let result = req.session.user;
+  res.render("index", {result});
+});
+
+router.get("/about", (req, res, next) => {
+  let result = req.session.user;
+  res.render("about", {result});
 });
 
 //Sign Up GET Route
@@ -38,6 +44,7 @@ router.post("/signup", (req, res, next) => {
 
 //Sign In GET Route
 router.get("/signin", (req, res, next) => {
+  let result = req.session.user;
   res.render("signin.hbs");
 });
 //Sign In POST Route
@@ -76,6 +83,7 @@ const checkLoggin = (req, res, next) => {
     res.redirect("/signin");
   }
 };
+
 
 router.get("/profile/:id", checkLoggin, (req, res, next) => {
   let id = req.params.id;

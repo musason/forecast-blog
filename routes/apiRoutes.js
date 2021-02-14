@@ -15,20 +15,19 @@ const checkLoggin = (req, res, next) => {
   }
 };
 
-router.get("/search", checkLoggin, (req, res, next) => {
-  res.render("search.hbs");
+router.get("/search",checkLoggin, (req, res, next) => {
+  let result = req.session.user;
+  res.render("search.hbs", {result});
 });
 
-router.post("/search", checkLoggin, (req, res, next) => {
-  let key = process.env.API_KEY;
-  const { seriesName } = req.body;
-  axios
-    .get(
-      `https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`
-    )
-    .then((result) => {
-      let searchResult = result.data.results;
-      res.render("search", { searchResult });
+router.post('/search', checkLoggin, (req, res, next) => {
+  let key = process.env.API_KEY
+  const {seriesName} = req.body
+  axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`)
+    .then((tvResult) => {
+      let result = req.session.user;
+      let searchResult = tvResult.data.results
+      res.render('search', {searchResult, result})
     })
     .catch((err) => {
       next(err);

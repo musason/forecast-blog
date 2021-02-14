@@ -1,21 +1,19 @@
-{{> signinNav this}}
-<h1>Sign Up</h1>
+<div class="singin-main"> 
+  <h1>Pleaes sign up</h1>
 
-<form action="/signup" method="POST">
+  <form action="/signup" method="POST">
     <div class="mb-3">
-       <label for="validationCustomEmail" class="form-label">Email</label>
-<input name="email" type="text" class="form-control" id="validationCustomEmail" aria-describedby="inputGroupPrepend" required>    <div id="emailHelp" class="form-text">Choose a Username</div>
-      <label for="validationCustomUsername" class="form-label">nickname</label>
-<input name="nickname" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>    <div id="emailHelp" class="form-text">Choose a Username</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input name="password"type="password" class="form-control" id="exampleInputPassword1">
-    <div id="emailHelp" class="form-text">Type in your Password here</div>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+      {{!-- <label for="validationCustomEmail" class="form-label">Email</label> --}}
+      <input name="email" type="text" class="form-control" id="validationCustomEmail" placeholder="Email" aria-describedby="inputGroupPrepend" required="required">    
+      {{!-- <label for="validationCustomUsername" class="form-label">nickname</label> --}}
+      <input name="nickname" type="text" class="form-control" id="validationCustomUsername" placeholder="Nick-Name" aria-describedby="inputGroupPrepend" required="required">
+      {{!-- <label for="exampleInputPassword1" class="form-label">Password</label> --}}
+      <input name="password"type="password" class="form-control" placeholder="Password" id="exampleInputPassword1" required="required">
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </div>
+  </form>
 
-{{#if msg}}
-    <div class="alert alert-danger" role="alert">{{msg}}</div>
-{{/if}}
+  {{#if msg}}
+      <div class="alert alert-danger" role="alert">{{msg}}</div>
+  {{/if}}
+</div>
