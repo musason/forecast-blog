@@ -3,16 +3,10 @@
 
 <div>
     
-  
    
     {{#each seasons}}
-    <h2> {{this.name}}</h2>
-    <select class="form-select" aria-label="Default select example">
-       <option selected>Episodes</option>
-    {{#each epNumArr}}
-  <option value="1">Episode{{this}}</option>
-  {{/each}}
-  </select>
+      {{#if ( this.name 'Season')}}
+        <h2>{{this.name}}</h2>
+        {{/if}}
            {{/each}}
-      
   </div>
