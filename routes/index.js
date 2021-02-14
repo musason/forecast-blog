@@ -11,6 +11,11 @@ router.get("/", (req, res, next) => {
   res.render("index", {result});
 });
 
+router.get("/about", (req, res, next) => {
+  let result = req.session.user;
+  res.render("about", {result});
+});
+
 //Sign Up GET Route
 router.get("/signup", (req, res, next) => {
   res.render("signup.hbs");

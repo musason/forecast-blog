@@ -14,7 +14,8 @@
 
       <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
          <div class="container-fluid entire-nav">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/">Forecast-Blog</a>
+            <a class="navbar-brand" href="/about">About</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
             </button>
@@ -32,11 +33,9 @@
                    <li class="nav-item">
                      <a class="nav-link active" aria-current="page" href="/search">Search</a>
                   </li>
-                  {{#if result._id}}
                   <li class="nav-item">
                      <a class="nav-link" href="/profile/{{result._id}}">Your Profile</a>
                   </li>
-                  {{/if}}
                   <li class="nav-item">
                      <a class="nav-link" href="/tvblog">Tv Blog</a>
                   </li>
@@ -51,7 +50,7 @@
             </div>
          </div>
       </nav>
-      <div class="except-nav">
+      <div>
          {{{body}}}
       </div>
       <!-- JavaScript Bundle with Popper -->

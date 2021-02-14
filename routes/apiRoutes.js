@@ -21,8 +21,9 @@ router.post('/search', checkLoggin, (req, res, next) => {
   let key = process.env.API_KEY
   const {seriesName} = req.body
   axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`)
-    .then((result) => {
-      let searchResult = result.data.results
+    .then((tvResult) => {
+      let result = req.session.user;
+      let searchResult = tvResult.data.results
       res.render('search', {searchResult, result})
     })
     .catch((err) => {

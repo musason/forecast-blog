@@ -5,9 +5,12 @@
 
 body {
   font: 10px "Lucida Grande", Helvetica, Arial, sans-serif; 
+  background-color: #e9e9e9;
 }
 
 /*# sourceMappingURL=style.css.map */
+
+/* Navigation Section */
 
 .navigation-align {
   margin-left: auto;
@@ -18,17 +21,19 @@ body {
   margin: 0 5rem;
 }
 
-.except-nav {
-  margin: 2rem 5rem;
-  text-align: center;
-}
+/* Sign-in and Sign-up Section */
 
 .singin-main {
-  margin: 8rem 28rem;
+  margin: 8rem 37.2rem;
+  text-align: center;
 }
 
 .singin-main form {
   margin: 2rem 2rem;
+}
+
+.form-control {
+  margin-top: 0.2rem;
 }
 
 .singin-main form input:focus {
@@ -41,3 +46,29 @@ body {
   margin-top: 2rem;
   padding: 0.2rem 6.65rem;
 }
+
+/* Home Page */
+
+.home-page {
+  background-image: url('/images/2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 99vw;
+  height: 100vh;
+  text-align: center;
+  padding-top: 1.2rem;
+  color: #541fe6;
+}
+
+.home-page p {
+  padding-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Search Section */
+
+.search-form {
+  margin: 2rem 37.2rem;
+  text-align: center;
+}
+
