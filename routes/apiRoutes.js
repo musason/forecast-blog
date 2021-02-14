@@ -42,27 +42,27 @@ router.get("/search/:id", checkLoggin, (req, res, next) => {
     .then((result) => {
       let data = result.data;
       let seasons = result.data.seasons;
-      for (let i = 0; i < seasons.length; i++) {
-        let seasonId = seasons[i].id
-        let seasonNum = seasons[i].season_number
-        axios.get(`https://api.themoviedb.org/3/tv/${seasonId}/season/${seasonNum}?api_key=999f732f38fbef834fc946a9df9d5c5e`)
-          .then((epResult) => {
-            let epArray = epResult.data.episodes
-            console.log(epArray[1])
-            let epNumArr = []
-            for (let j = 0; j < epArray.length; j++){
-              // console.log(epArray[j])
-              epNumArr.push(epArray[j].episode_number)
-            }
+      // for (let i = 0; i < seasons.length; i++) {
+      //   let seasonId = seasons[i].id
+      //   let seasonNum = seasons[i].season_number
+      //   axios.get(`https://api.themoviedb.org/3/tv/${seasonId}/season/${seasonNum}?api_key=${key}`)
+      //     .then((epResult) => {
+      //       let epArray = epResult.data.episodes
+      //       console.log(epArray[1])
+      //       let epNumArr = []
+      //       for (let j = 0; j < epArray.length; j++){
+      //         // console.log(epArray[j])
+      //         epNumArr.push(epArray[j].episode_number)
+      //       }
             
-            // console.log(epNumArr)
-            res.render("show", { data, result, seasons, epNumArr });
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
-      // res.render("show", { data, result, seasons, epNumArr});
+      //       // console.log(epNumArr)
+      //       res.render("show", { data, result, seasons, epNumArr });
+      //     })
+      //     .catch((err) => {
+      //       console.log(err)
+      //     })
+      // }
+      res.render("show", { data, result, seasons});
     })
     .catch((err) => {
       next(err);
