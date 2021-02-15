@@ -3,27 +3,12 @@
 <img src="https://image.tmdb.org/t/p/w185{{data.poster_path}}" alt="">
 
 <div>
-<<<<<<< HEAD
-    
-   
-{{#each seasons}}
-   <a href="/show/{{this.name}}/{{this.id}}">
-      <h2> {{this.name}}</h2>
-   </a>
-   {{!-- <select class="form-select" aria-label="Default select example">
-   <option selected>Episodes</option>
-   {{#each seasonNumber}}
-      <option value="1">Episode{{this}}</option>
-   {{/each}}
-  </select> --}}
-=======
    
 {{#each seasons}}
 <a href="/search/{{id}}/{{this.season_number}}/{{seriesName}}">
    <h2> {{this.name}}</h2>
 </a>
 
->>>>>>> origin/zelimhan
 {{/each}}
       
   </div>

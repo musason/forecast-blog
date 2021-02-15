@@ -3,6 +3,9 @@ const express = require("express");
 const router = express.Router();
 hbs = require("hbs");
 hbs.registerPartials(__dirname + "/views/partials");
+const BlogModel = require("../models/BlogModel.js");
+const EpisodeModel = require("../models/EpisodeModel.js");
+
 
 const checkLoggin = (req, res, next) => {
   if (req.session.user) {
@@ -73,22 +76,92 @@ router.get("/search/:id/:season/:showname", checkLoggin, (req, res, next) => {
     });
 });
 
-router.get('/:blog/:epid/:name/:showname', checkLoggin, (req, res, next) => {
-  let epId = req.params.epId
-  let blog = req.params.blog
-  let eppName = req.params.name
+router.get('/:airdate/:epid/:name/:showname/:season', checkLoggin, (req, res, next) => {
+  let epId = req.params.epid;
+  let airDate = req.params.airdate;
+  let seasonName = req.params.season;
+  let eppName = req.params.name;
   let eppShowName = req.params.showname;
   let today = new Date()
-  let result = req.session.user
+  let result = req.session.user;
   today = JSON.stringify(today);
   today = today.slice(0, 11);
-  res.render("tvblog", { eppName, eppShowName, result });
-    
-  
 
 
+  EpisodeModel.findOne({ episodeId: epId })
+    .then((result) => {
+      if (result) {
+      let newEpId = result._id
+      BlogModel.find({ episodeId: newEpId })
+        .then((blogValue) => {
+          res.render("tvblog", {
+            eppName,
+            eppShowName,
+            result,
+            seasonName,
+            epId,
+            airDate,
+            blogValue
+          });
+        })
+        .catch(() => {
+          
+        })
+      }
+      else {
+        res.render("tvblog", {
+          eppName,
+          eppShowName,
+          result,
+          seasonName,
+          epId,
+          airDate,
+        });
 
-
+      }
+  })
+    .catch(() => {
+  });
 })
+
+router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, next) => {
+  const { comment } = req.body
+  const { airdate, epid, name, showname, season } = req.params
+  const pageResult = { airdate, epid, name, showname, season };
+  let user = req.session.user
+  EpisodeModel.findOne({episodeId: epid})
+    .then((result) => {
+
+      if (result) {
+        BlogModel.create({ comment,episodeId: result._id,myUserId: user._id })
+          .then((value) => {
+            res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`)
+          })
+          .catch(() => {
+            
+          })
+      } else {
+        EpisodeModel.create({ episodeId: epid })
+          .then((result) => {
+            BlogModel.create({
+              comment,
+              episodeId: result._id,
+              myUserId: user._id,
+            }).then(() => {
+                res.redirect(
+                  `/${airdate}/${epid}/${name}/${showname}/${season}`
+                );
+            }).catch(() => {
+            })
+          })
+          .catch(() => {
+        })
+      }
+    })
+    .catch((err) => {
+    
+    })
+});
+
 
 module.exports = router;
