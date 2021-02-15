@@ -1,0 +1,10 @@
+<div>
+  <img src="https://image.tmdb.org/t/p/w185{{seasonData.poster_path}}" alt="">
+</div>
+<h1>{{seasonData.name}}</h1>
+
+{{#each episodesData}}
+  <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}">
+  <h3>{{this.name}}</h3>
+  </a> 
+{{/each}}

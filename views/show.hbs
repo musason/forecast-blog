@@ -1,7 +1,9 @@
+  
 <h1>{{data.name}}</h1>
 <img src="https://image.tmdb.org/t/p/w185{{data.poster_path}}" alt="">
 
 <div>
+<<<<<<< HEAD
     
    
 {{#each seasons}}
@@ -14,6 +16,15 @@
       <option value="1">Episode{{this}}</option>
    {{/each}}
   </select> --}}
+=======
+   
+{{#each seasons}}
+<a href="/search/{{id}}/{{this.season_number}}/{{seriesName}}">
+   <h2> {{this.name}}</h2>
+</a>
+
+>>>>>>> origin/zelimhan
 {{/each}}
       
   </div>
+
