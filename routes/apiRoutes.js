@@ -4,9 +4,6 @@ const router = express.Router();
 hbs = require("hbs");
 hbs.registerPartials(__dirname + "/views/partials");
 
-
-
-
 const checkLoggin = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -15,19 +12,22 @@ const checkLoggin = (req, res, next) => {
   }
 };
 
-router.get("/search",checkLoggin, (req, res, next) => {
+router.get("/search", checkLoggin, (req, res, next) => {
   let result = req.session.user;
-  res.render("search.hbs", {result});
+  res.render("search.hbs", { result });
 });
 
-router.post('/search', checkLoggin, (req, res, next) => {
-  let key = process.env.API_KEY
-  const {seriesName} = req.body
-  axios.get(`https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`)
+router.post("/search", checkLoggin, (req, res, next) => {
+  let key = process.env.API_KEY;
+  const { seriesName } = req.body;
+  axios
+    .get(
+      `https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`
+    )
     .then((tvResult) => {
       let result = req.session.user;
-      let searchResult = tvResult.data.results
-      res.render('search', {searchResult, result})
+      let searchResult = tvResult.data.results;
+      res.render("search", { searchResult, result });
     })
     .catch((err) => {
       next(err);
@@ -42,33 +42,53 @@ router.get("/search/:id", checkLoggin, (req, res, next) => {
     .then((result) => {
       let data = result.data;
       let seasons = result.data.seasons;
-
-      for (let i = 0; i < seasons[0].season_number; i++) {
-        seasonNumber = seasons[0].season_number
-      }
-      
-      // let seasonNum = seasons[i].season_number
-      axios.get(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}?api_key=${key}`)
-        .then((epResult) => {
-          // let epArray = epResult.data
-          // console.log(epResult);
-          // console.log(epArray)
-          // for (let j = 0; j < epArray.length; j++){
-          //   // console.log(epArray[j])
-          //   epNumArr.push(epArray[j].episode_number)
-          // }
-          let epps = epResult.data.episodes
-          console.log(epps)
-          res.render("show", { data, result, seasons, seasonNumber, epps });
-        })
-        .catch((err) => {
-          // console.log(err)
-        })
-      // res.render("show", { data, result, seasons});
+      let showName = data.name
+      seasons.forEach(e => e.id = id)
+      seasons.forEach((e) => (e.seriesName = showName));
+      res.render("show", { data, result, seasons, id });
     })
     .catch((err) => {
       next(err);
     });
 });
+
+router.get("/search/:id/:season/:showname", checkLoggin, (req, res, next) => {
+  let key = process.env.API_KEY;
+  let seaNum = req.params.season;
+  let seriesNewName = req.params.showname;
+  let tvid = req.params.id;
+  axios
+    .get(
+      `https://api.themoviedb.org/3/tv/${tvid}/season/${seaNum}?api_key=${key}`
+    )
+    .then((seasonResult) => {
+      let episodesData = seasonResult.data.episodes
+      let seasonData = seasonResult.data
+      // let showName = seasonData.name
+      episodesData.forEach((e) => (e.still_path = seriesNewName));
+      res.render("season", { episodesData, seasonData });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.get('/:blog/:epid/:name/:showname', checkLoggin, (req, res, next) => {
+  let epId = req.params.epId
+  let blog = req.params.blog
+  let eppName = req.params.name
+  let eppShowName = req.params.showname;
+  let today = new Date()
+  let result = req.session.user
+  today = JSON.stringify(today);
+  today = today.slice(0, 11);
+  res.render("tvblog", { eppName, eppShowName, result });
+    
+  
+
+
+
+
+})
 
 module.exports = router;
