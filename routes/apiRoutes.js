@@ -86,43 +86,75 @@ router.get('/:airdate/:epid/:name/:showname/:season', checkLoggin, (req, res, ne
   let result = req.session.user;
   today = JSON.stringify(today);
   today = today.slice(0, 11);
-  res.render("tvblog", {
-    eppName,
-    eppShowName,
-    result,
-    seasonName,
-    epId,
-    airDate,
-  });
 
+
+  EpisodeModel.findOne({ episodeId: epId })
+    .then((result) => {
+      if (result) {
+      let newEpId = result._id
+      BlogModel.find({ episodeId: newEpId })
+        .then((blogValue) => {
+          res.render("tvblog", {
+            eppName,
+            eppShowName,
+            result,
+            seasonName,
+            epId,
+            airDate,
+            blogValue
+          });
+        })
+        .catch(() => {
+          
+        })
+      }
+      else {
+        res.render("tvblog", {
+          eppName,
+          eppShowName,
+          result,
+          seasonName,
+          epId,
+          airDate,
+        });
+
+      }
+  })
+    .catch(() => {
+  });
 })
 
 router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, next) => {
   const { comment } = req.body
   const { airdate, epid, name, showname, season } = req.params
+  const pageResult = { airdate, epid, name, showname, season };
   let user = req.session.user
   EpisodeModel.findOne({episodeId: epid})
     .then((result) => {
-      // console.log(result)
+
       if (result) {
         BlogModel.create({ comment,episodeId: result._id,myUserId: user._id })
-          .then()
+          .then((value) => {
+            res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`)
+          })
+          .catch(() => {
+            
+          })
       } else {
         EpisodeModel.create({ episodeId: epid })
           .then((result) => {
-            console.log(result)
             BlogModel.create({
               comment,
               episodeId: result._id,
               myUserId: user._id,
             }).then(() => {
-
+                res.redirect(
+                  `/${airdate}/${epid}/${name}/${showname}/${season}`
+                );
             }).catch(() => {
-
             })
           })
           .catch(() => {
-          
         })
       }
     })

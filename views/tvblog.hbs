@@ -2,6 +2,14 @@
 <h2>Season {{seasonName}}</h2>
 <h3>{{eppName}}</h3>
 
+  {{#if blogValue}}
+<div>
+  {{#each blogValue}}
+    <p>{{this.comment}}</p>
+
+  {{/each}}
+</div>
+{{/if}}
 
 <form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}" method="POST">
  <div class="form-group">

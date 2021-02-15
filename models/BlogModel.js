@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const BlogSchema = new mongoose.Schema({
-  comment: String,
+  comment: {
+    type: String,
+    required: true,
+    minLength: 5
+  },
   episodeId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'episode'
