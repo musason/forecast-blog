@@ -5,8 +5,10 @@
   {{#if blogValue}}
 <div>
   {{#each blogValue}}
+    <h4>{{nickname}}</h4>
     <p>{{this.comment}}</p>
-
+    <a href="">Edit</a>
+    <a href="">Delete</a>
   {{/each}}
 </div>
 {{/if}}

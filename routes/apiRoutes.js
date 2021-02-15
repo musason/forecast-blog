@@ -101,12 +101,10 @@ router.get('/:airdate/:epid/:name/:showname/:season', checkLoggin, (req, res, ne
             seasonName,
             epId,
             airDate,
-            blogValue
+            blogValue,
           });
         })
-        .catch(() => {
-          
-        })
+        .catch(() => {});
       }
       else {
         res.render("tvblog", {
@@ -129,10 +127,11 @@ router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, n
   const { airdate, epid, name, showname, season } = req.params
   const pageResult = { airdate, epid, name, showname, season };
   let user = req.session.user
-  EpisodeModel.findOne({episodeId: epid})
+  EpisodeModel.findOne({episodeId: epid, })
     .then((result) => {
 
       if (result) {
+        console.log(result);
         BlogModel.create({ comment,episodeId: result._id,myUserId: user._id })
           .then((value) => {
             res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`)
@@ -141,6 +140,7 @@ router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, n
             
           })
       } else {
+        console.log(result)
         EpisodeModel.create({ episodeId: epid })
           .then((result) => {
             BlogModel.create({
