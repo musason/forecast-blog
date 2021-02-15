@@ -13,6 +13,10 @@ const BlogSchema = new mongoose.Schema({
   myUserId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
+  },
+  myNickname: {
+    type: mongoose.Schema.Types.String,
+    ref: 'nick'
   }
 });
 
