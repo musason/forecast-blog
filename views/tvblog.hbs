@@ -1,1 +1,11 @@
-<h1>hi</h1>
+<h1>{{eppShowName}}</h1>
+<h2>Season {{seasonName}}</h2>
+<h3>{{eppName}}</h3>
+
+
+<form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}" method="POST">
+ <div class="form-group">
+    <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" placeholder="Write your Blog here"  rows="3"></textarea>
+</div>
+    <button type="submit" class="btn btn-outline-dark">Post</button>
+</form>
