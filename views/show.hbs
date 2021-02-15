@@ -3,16 +3,17 @@
 
 <div>
     
-  
    
 {{#each seasons}}
-   <h2> {{this.name}}</h2>
-   <select class="form-select" aria-label="Default select example">
+   <a href="/show/{{this.name}}/{{this.id}}">
+      <h2> {{this.name}}</h2>
+   </a>
+   {{!-- <select class="form-select" aria-label="Default select example">
    <option selected>Episodes</option>
    {{#each seasonNumber}}
       <option value="1">Episode{{this}}</option>
    {{/each}}
-  </select>
+  </select> --}}
 {{/each}}
       
   </div>
