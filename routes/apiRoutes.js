@@ -123,16 +123,16 @@ router.get('/:airdate/:epid/:name/:showname/:season', checkLoggin, (req, res, ne
 })
 
 router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, next) => {
-  const { comment } = req.body
+  const { comment} = req.body
   const { airdate, epid, name, showname, season } = req.params
   const pageResult = { airdate, epid, name, showname, season };
   let user = req.session.user
-  EpisodeModel.findOne({episodeId: epid, })
+  
+  EpisodeModel.findOne({episodeId: epid})
     .then((result) => {
 
       if (result) {
-        console.log(result);
-        BlogModel.create({ comment,episodeId: result._id,myUserId: user._id })
+        BlogModel.create({ comment, episodeId: result._id, myUserId: user._id, myNickname: user.nickname })
           .then((value) => {
             res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`)
           })
@@ -140,7 +140,6 @@ router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, n
             
           })
       } else {
-        console.log(result)
         EpisodeModel.create({ episodeId: epid })
           .then((result) => {
             BlogModel.create({
