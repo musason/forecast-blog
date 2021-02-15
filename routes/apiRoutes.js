@@ -162,5 +162,48 @@ router.post("/:airdate/:epid/:name/:showname/:season", checkLoggin, (req, res, n
     })
 });
 
+// Deleting the blogPost
+
+router.post('/:blogId/delete', checkLoggin, (req, res, next) => {
+  let blogDatabaseId = req.params.blogId
+  BlogModel.findByIdAndDelete(blogDatabaseId)
+    .then((result) => {
+      console.log(result);
+      res.redirect('back');
+    })
+    .catch((err) => {
+      next(err)
+    })
+})
+
+//Editing the blogPost
+
+router.get("/:blogId/edit", (req, res, next) => {
+  let blogDatabaseId = req.params.blogId
+  BlogModel.findById(blogDatabaseId)
+    .then((someBlogValue) => {
+      res.render('blog-update', {someBlogValue})
+    })
+    .catch((err) => {
+      next(err)
+    })
+}) 
+  
+router.post("/:blogId/edit", (req, res, next) => {
+  let blogDatabaseId = req.params.blogId
+  const {newComment} = req.body
+  let editedComment = {
+    comment: newComment
+  }
+
+  BlogModel.findByIdAndUpdate(blogDatabaseId, editedComment)
+    .then(() => {
+      res.redirect('/')
+    })
+    .catch((err) => {
+      next(err)
+    })
+
+})
 
 module.exports = router;
