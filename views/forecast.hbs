@@ -1,0 +1,30 @@
+<h1>Forecast</h1>
+<h1>{{eppShowName}}</h1>
+<h2>Season {{seasonName}}</h2>
+<h3>{{eppName}}</h3>
+
+  {{#if blogValue}}
+<div>
+  {{#each blogValue}}
+    <h4>{{myNickname}}</h4>
+    <p>{{this.comment}}</p>
+    
+
+    {{#if this.blogOwner}}
+    <a href="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{this._id}}/edit">
+      <button>Edit</button>
+    </a>
+    <form action="/{{this._id}}/delete" method="POST">
+      <button>Delete</button>
+    </form> 
+    {{/if}}
+  {{/each}}
+</div>
+{{/if}}
+
+<form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}" method="POST">
+ <div class="form-group">
+    <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" placeholder="Write your Blog here"  rows="3"></textarea>
+</div>
+    <button type="submit" class="btn btn-outline-dark">Post</button>
+</form>
