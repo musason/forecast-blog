@@ -94,25 +94,16 @@ router.get(
     EpisodeModel.findOne({ episodeId: epId })
       .then((episodeResult) => {
         if (episodeResult) {
+          console.log("if")
           let newEpId = episodeResult._id;
           BlogModel.find({ episodeId: newEpId })
             .then((blogValueFromMongo) => {
-              // let userIdArray = [];
-              // for (let i = 0; i < blogValue.length; i++) {
-              //   blogValue[i]
-              // }
-              // for (let i = 0; i < blogValue.length; i++) {
-              //   if (blogValue[i].myUserId == result._id) {
-              //   }
-              // }
-              // console.log(blogValue);
+
               const blogValue = JSON.parse(JSON.stringify(blogValueFromMongo));
               blogValue.forEach((ele) => {
-                // console.log(ele.myUserId, result._id)
                 if (
                   JSON.stringify(ele.myUserId) == JSON.stringify(result._id)
                 ) {
-                  // console.log("Hello")
                   ele.blogOwner = true;
                 }
                 ele.airDate = airDate;
@@ -142,8 +133,7 @@ router.get(
             seasonName,
             epId,
             airDate,
-            result,
-            userIdArray,
+            result
           });
         }
       })
@@ -162,7 +152,9 @@ router.post(
 
     EpisodeModel.findOne({ episodeId: epid })
       .then((epFindResult) => {
+        
         if (epFindResult) {
+          
           BlogModel.create({
             comment,
             episodeId: epFindResult._id,
@@ -174,6 +166,7 @@ router.post(
             })
             .catch(() => {});
         } else {
+         
           EpisodeModel.create({ episodeId: epid })
             .then((epFindResult) => {
               BlogModel.create({
