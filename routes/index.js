@@ -86,10 +86,11 @@ const checkLoggin = (req, res, next) => {
 
 
 router.get("/profile/:id", checkLoggin, (req, res, next) => {
+  let result = req.session.user;
   let id = req.params.id;
   UserModel.findById(id)
-    .then((result) => {
-      res.render("profile", {result});
+    .then((userResult) => {
+      res.render("profile", {userResult, result});
     })
     .catch(() => {});
 });

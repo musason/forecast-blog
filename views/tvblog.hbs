@@ -7,12 +7,16 @@
   {{#each blogValue}}
     <h4>{{myNickname}}</h4>
     <p>{{this.comment}}</p>
-    <a href="/{{this._id}}/edit">
+    
+
+    {{#if this.blogOwner}}
+    <a href="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{this._id}}/edit">
       <button>Edit</button>
     </a>
     <form action="/{{this._id}}/delete" method="POST">
       <button>Delete</button>
-    </form>
+    </form> 
+    {{/if}}
   {{/each}}
 </div>
 {{/if}}
