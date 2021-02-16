@@ -12,9 +12,9 @@ body {
 
 /* Navigation Section */
 
-.navigation-align {
+/* .navigation-align {
   margin-left: auto;
-}
+} */
 
 .entire-nav {
   font-size: 1.2rem;
@@ -24,12 +24,12 @@ body {
 /* Sign-in and Sign-up Section */
 
 .singin-main {
-  margin: 8rem 37.2rem;
+  
   text-align: center;
 }
 
 .singin-main form {
-  margin: 2rem 2rem;
+ 
 }
 
 .form-control {
@@ -68,7 +68,10 @@ body {
 /* Search Section */
 
 .search-form {
-  margin: 2rem 37.2rem;
   text-align: center;
+} 
+
+.form-control {
+  width: 15rem;
 }
 
