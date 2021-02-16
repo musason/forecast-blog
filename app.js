@@ -53,6 +53,8 @@ app.use("/", index);
 const apiRoutes = require("./routes/apiRoutes")
 app.use('/', apiRoutes)
 
+const popularSearch = require("./routes/popularSearch");
+app.use("/", popularSearch);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
