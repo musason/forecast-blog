@@ -1,10 +1,15 @@
-<div>
-  <img src="https://image.tmdb.org/t/p/w185{{seasonData.poster_path}}" alt="">
+<div class="season-main">
+  <div>
+    <img src="https://image.tmdb.org/t/p/w185{{seasonData.poster_path}}" alt="">
+  </div>
+  <h1>{{seasonData.name}}</h1>
+  <div class="season-flex">
+    {{#each episodesData}}
+    <div>
+      <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}/{{this.season_number}}">
+      <h4>{{this.name}}</h4>
+      </a>
+    </div> 
+    {{/each}} 
+  </div>
 </div>
-<h1>{{seasonData.name}}</h1>
-
-{{#each episodesData}}
-  <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}/{{this.season_number}}">
-  <h3>{{this.name}}</h3>
-  </a> 
-{{/each}}
