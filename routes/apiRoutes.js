@@ -72,7 +72,6 @@ router.get("/search/:id/:season/:showname", checkLoggin, (req, res, next) => {
     .then((seasonResult) => {
       let episodesData = seasonResult.data.episodes;
       let seasonData = seasonResult.data;
-      // let showName = seasonData.name
       episodesData.forEach((e) => (e.still_path = seriesNewName));
       res.render("season", { episodesData, seasonData, result });
     })
@@ -95,7 +94,6 @@ router.get(
     today = JSON.stringify(today);
     today = today.slice(1, 11);
 
-    if (airDate <= today) {
       
       EpisodeModel.findOne({ episodeId: epId })
         .then((episodeResult) => {
@@ -105,9 +103,7 @@ router.get(
               .then((blogValueFromMongo) => {
                 const blogValue = JSON.parse(JSON.stringify(blogValueFromMongo));
                 blogValue.forEach((ele) => {
-                  if (
-                    JSON.stringify(ele.myUserId) == JSON.stringify(result._id)
-                  ) {
+                  if (JSON.stringify(ele.myUserId) == JSON.stringify(result._id)) {
                     ele.blogOwner = true;
                   }
                   ele.airDate = airDate;
@@ -116,68 +112,19 @@ router.get(
                   ele.eppShowName = eppShowName;
                   ele.seasonName = seasonName;
                 });
-                res.render("tvblog", {
-                  eppName,
-                  eppShowName,
-                  episodeResult,
-                  seasonName,
-                  epId,
-                  airDate,
-                  blogValue,
-                  result,
-                });
-              })
-              .catch(() => { });
-          } else {
-            res.render("tvblog", {
-              eppName,
-              eppShowName,
-              episodeResult,
-              seasonName,
-              epId,
-              airDate,
-              result,
-            });
-          }
-        })
-        .catch(() => { });
-    }
-    else {
-            EpisodeModel.findOne({ episodeId: epId })
-              .then((episodeResult) => {
-                if (episodeResult) {
-                  let newEpId = episodeResult._id;
-                  BlogModel.find({ episodeId: newEpId })
-                    .then((blogValueFromMongo) => {
-                      const blogValue = JSON.parse(
-                        JSON.stringify(blogValueFromMongo)
-                      );
-                      blogValue.forEach((ele) => {
-                        if (
-                          JSON.stringify(ele.myUserId) ==
-                          JSON.stringify(result._id)
-                        ) {
-                          ele.blogOwner = true;
-                        }
-                        ele.airDate = airDate;
-                        ele.epId = epId;
-                        ele.eppName = eppName;
-                        ele.eppShowName = eppShowName;
-                        ele.seasonName = seasonName;
-                      });
-                      res.render("forecast", {
-                        eppName,
-                        eppShowName,
-                        episodeResult,
-                        seasonName,
-                        epId,
-                        airDate,
-                        blogValue,
-                        result,
-                      });
-                    })
-                    .catch(() => {});
-                } else {
+                if (airDate <= today) {
+                  res.render("tvblog", {
+                    eppName,
+                    eppShowName,
+                    episodeResult,
+                    seasonName,
+                    epId,
+                    airDate,
+                    blogValue,
+                    result,
+                  });
+                }
+                else {
                   res.render("forecast", {
                     eppName,
                     eppShowName,
@@ -185,12 +132,38 @@ router.get(
                     seasonName,
                     epId,
                     airDate,
+                    blogValue,
                     result,
                   });
                 }
               })
-              .catch(() => {});
-    }
+              .catch(() => { });
+          } else {
+            if (airDate <= today) {
+              res.render("tvblog", {
+                eppName,
+                eppShowName,
+                episodeResult,
+                seasonName,
+                epId,
+                airDate,
+                result,
+              });
+            }
+            else {
+               res.render("forecast", {
+                 eppName,
+                 eppShowName,
+                 episodeResult,
+                 seasonName,
+                 epId,
+                 airDate,
+                 result,
+               });
+            }
+          }
+        })
+        .catch(() => {});
   }
 );
 
@@ -217,7 +190,13 @@ router.post(
             })
             .catch(() => {});
         } else {
-          EpisodeModel.create({ episodeId: epid })
+          EpisodeModel.create({
+            episodeId: epid,
+            seriesName: showname,
+            seriesSeason: season,
+            seriesEpisode: name,
+            blogUrl: `/${airdate}/${epid}/${name}/${showname}/${season}`
+          })
             .then((epFindResult) => {
               BlogModel.create({
                 comment,
@@ -312,5 +291,6 @@ router.post(
       });
   }
 );
+
 
 module.exports = router;

@@ -3,17 +3,17 @@ const router = express.Router();
 const UserModel = require("../models/UserModel.js");
 const bcrypt = require("bcryptjs");
 const axios = require("axios").default;
-
+const BlogModel = require("../models/BlogModel.js");
 
 /* GET home page */
 router.get("/", (req, res, next) => {
   let result = req.session.user;
-  res.render("index", {result});
+  res.render("index", { result });
 });
 
 router.get("/about", (req, res, next) => {
   let result = req.session.user;
-  res.render("about", {result});
+  res.render("about", { result });
 });
 
 //Sign Up GET Route
@@ -84,13 +84,20 @@ const checkLoggin = (req, res, next) => {
   }
 };
 
-
 router.get("/profile/:id", checkLoggin, (req, res, next) => {
   let result = req.session.user;
   let id = req.params.id;
-  UserModel.findById(id)
+  BlogModel.find()
+    .populate("episodeId")
     .then((userResult) => {
-      res.render("profile", {userResult, result});
+
+      console.log(userResult)
+      userResult.forEach((ele) => {
+        if (JSON.stringify(ele.myUserId) == JSON.stringify(result._id)) {
+          ele.blogWriter = true;
+        }
+      });
+      res.render("profile", { userResult, result });
     })
     .catch(() => {});
 });
