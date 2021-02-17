@@ -12,9 +12,9 @@ body {
 
 /* Navigation Section */
 
-.navigation-align {
+/* .navigation-align {
   margin-left: auto;
-}
+} */
 
 .entire-nav {
   font-size: 1.2rem;
@@ -24,12 +24,15 @@ body {
 /* Sign-in and Sign-up Section */
 
 .singin-main {
-  margin: 8rem 37.2rem;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
 }
 
-.singin-main form {
-  margin: 2rem 2rem;
+.singin-main form input{
+    margin-left: 1rem;
 }
 
 .form-control {
@@ -68,7 +71,46 @@ body {
 /* Search Section */
 
 .search-form {
-  margin: 2rem 37.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   text-align: center;
+} 
+
+.form-control {
+  width: 15rem;
 }
+
+.search-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 4rem;
+  flex-wrap: wrap;
+  
+}
+
+/* About Section */
+
+.about-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  text-align: justify;
+}
+
+.about-section p {
+  width: 500px;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  color: rgba(0, 0, 0, 0.712);
+}
+
+.about-section h2 {
+  font-size: 2.5rem;
+  color: #541fe6;
+}
+
 
