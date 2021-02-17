@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const EpisodeSchema = new mongoose.Schema({
-  episodeId: String
+  episodeId: String,
+  seriesName: String,
+  seriesSeason: String,
+  seriesEpisode: String,
+  blogUrl: String
 });
 
 const EpisodeModel = mongoose.model("episode", EpisodeSchema);
