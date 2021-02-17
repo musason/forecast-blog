@@ -8,6 +8,20 @@ body {
   background-color: #e9e9e9;
 }
 
+h1 {
+  font-family: 'Merriweather', serif;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: #033564  ;
+}
+
+a :hover {
+  color: black;
+} 
+
 /*# sourceMappingURL=style.css.map */
 
 /* Navigation Section */
@@ -36,7 +50,11 @@ body {
 }
 
 .form-control {
-  margin-top: 0.2rem;
+
+}
+
+.form-group {
+  width: 80rem;
 }
 
 .singin-main form input:focus {
@@ -74,7 +92,12 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  margin-left: 4rem;
 } 
+
+.card {
+  margin: 4rem;
+}
 
 .search-input {
   margin-right: 1rem;
@@ -94,7 +117,51 @@ body {
   align-items: center;
   margin: 2rem 4rem;
   flex-wrap: wrap;
-  
+}
+
+/* Season section -- displays the list of seasons */
+
+.season-main {
+  margin-top: 2rem;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.season-main h1 {
+  margin: 2rem;
+}
+
+.season-flex { 
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+/* TV Blog section */
+
+.show-main a {
+  width: 15rem;
+  height: 3.2rem;
+  margin-bottom: 0.7rem;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
+}
+
+.popular-show-main {
+  margin-top: 2rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.712);
+}
+
+/* Show section - list all the seasons */
+
+.episode-name {
+  text-decoration: none;
 }
 
 /* About Section */
@@ -124,20 +191,30 @@ body {
 
 .blog-main {
   display: flex;
- 
   align-items: center;
   flex-direction: column;
   margin-top: 2rem;
   color: rgba(0, 0, 0, 0.712);
-  min-height: 100vh;
+  min-height: 80vh;
 }
 
-.blog-individual {
-
+.post-blog {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .blog-create-form {
   position: fixed;
-  bottom:1rem;
+  bottom: 12rem;
   width: 30rem;
 }
+
+/* Footer-Section */
+
+#footer-section {
+  background-color: #292b2c;
+  min-height: 10rem;
+  color: #fff;
+}
+

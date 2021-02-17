@@ -20,11 +20,16 @@
       {{/if}}
     {{/each}}
   {{/if}}
-</div class="blog-create-form">
+</div>
+<div class="blog-create-form">
   <form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}" method="POST">
-  <div class="form-group">
-      <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" placeholder="Write your Blog here"  rows="3"></textarea>
+  <div class="post-blog">
+    <div class="form-group">
+        <textarea name="comment" class="form-control" style="min-width: 100%" id="exampleFormControlTextarea1" placeholder="Write your Blog here"  rows="3"></textarea>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-outline-dark">Post</button>
+    </div>
   </div>
-      <button type="submit" class="btn btn-outline-dark">Post</button>
   </form>
 </div>

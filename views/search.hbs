@@ -15,12 +15,13 @@
 
 <div class="search-result">
 {{#each searchResult}}
-  <div>
-    <a href="/search/{{this.id}}">
-    <h1>{{this.name}}</h1>
-    <img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}" alt="">
-    </a>
+<div class="card" style="width: 18rem;">
+  <img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}" class="card-img-top">
+  <div class="card-body">
+    <h5 class="card-title">{{this.name}}</h5>
+    <a href="/search/{{this.id}}" class="btn btn-primary">Check Episodes</a>
   </div>
+</div>
 {{/each}}
 </div>
 
