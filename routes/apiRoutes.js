@@ -125,10 +125,11 @@ router.get(
                 }
               });
 
-
               blogValue.forEach((ele) => {
-                if (JSON.stringify(ele.myUserId) == JSON.stringify(result._id)) {
-                    ele.blogOwner = true;
+                if (
+                  JSON.stringify(ele.myUserId) == JSON.stringify(result._id)
+                ) {
+                  ele.blogOwner = true;
                 }
               });
               if (airDate <= today) {
@@ -198,7 +199,7 @@ router.post(
 
     EpisodeModel.findOne({ episodeId: epid })
       .then((epFindResult) => {
-        console.log(epFindResult)
+        console.log(epFindResult);
         if (epFindResult) {
           if (airdate <= today) {
             BlogModel.create({
@@ -208,11 +209,11 @@ router.post(
               myNickname: result.nickname,
             })
               .then((value) => {
-              res.redirect(
-                `/${airdate}/${epid}/${name}/${showname}/${season}`
-              );
-            })
-            .catch(() => {});
+                res.redirect(
+                  `/${airdate}/${epid}/${name}/${showname}/${season}`
+                );
+              })
+              .catch(() => {});
           } else {
             BlogModel.create({
               forecastcomment,
@@ -304,7 +305,6 @@ router.get(
     console.log(thisBlogId);
     BlogModel.findById(thisBlogId)
       .then((someBlogValue) => {
-
         res.render("blog-update", {
           airDate,
           epId,
