@@ -82,6 +82,26 @@ a :hover {
   font-size: 1.2rem;
 }
 
+@media only screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    
+    .home-page h1 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+      color:red;
+    }
+
+    .home-page p {
+      margin-top: 20rem;
+      margin-right: .5rem;
+      margin-left: .5rem;
+      color: red;
+      font-size: 1.2rem;
+    }
+}
+
 /* Profile Section */
 
 .profile-main {
@@ -105,6 +125,20 @@ a :hover {
   margin-top: 1rem;
   margin-bottom: 1rem;
   font-size: 1.2rem;
+}
+
+@media only screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .profile-main {
+      margin: 1rem;
+      text-align: center;
+    }
+
+    .profile-blog-list {
+      margin: 2rem;
+    }
 }
 
 /* Edit Page */
@@ -151,13 +185,22 @@ a :hover {
   width: 15rem;
 }
 
-
 .search-result {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 2rem 4rem;
   flex-wrap: wrap;
+}
+
+@media only screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    
+    .search-result {
+      margin: 1rem 1rem;
+    }
 }
 
 /* Season section -- displays the list of seasons */
@@ -220,6 +263,16 @@ a :hover {
     .episode-display {
       margin-left: 25rem;
       margin-right: 25rem;
+    }
+}
+
+@media only screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .episode-display {
+      margin-left: 1rem;
+      margin-right: 1rem;
     }
 }
 
@@ -287,6 +340,19 @@ a :hover {
   color: #541fe6;
 }
 
+@media only screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .about-section {
+      margin-top: 1rem;
+      min-height: 95vh;
+    }
+    .about-section p {
+      width: 20rem;
+    }
+}
+
 /* Blog section */
 
 .blog-main {
@@ -299,12 +365,15 @@ a :hover {
   margin-bottom: 5rem;
 }
 
+
+
 .individual-blog {
   position: relative;
-  margin: 2rem 40rem;
+  margin: 2rem 35rem;
   border: 1px solid rgb(58, 144, 165);
   padding: 2rem;
   border-radius: 5px;
+  min-height: 10rem;
 }
 
 .btn-outline-danger {
@@ -313,6 +382,27 @@ a :hover {
 
 .individual-blog-name {
   width: 80%;
+}
+
+@media screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .blog-main {
+      margin: 1rem;
+      margin-bottom: 8rem;
+    }
+
+    .individual-blog {
+      margin: 0;
+      margin-bottom: 2rem;
+      padding-bottom: 8rem;
+    }
+
+    .individual-blog-name {
+      width: 60%;
+    }
+   
 }
 
 .individual-blog-name p {
@@ -344,7 +434,19 @@ a :hover {
   right: 2.2rem;
   top: 0.5rem;
   font-size: 1.2rem;
+  border: .5px solid;
+  border-radius: 10px;
+  padding: 0.5rem;
 }
+
+@media screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .blog-name {
+      right: 1rem;
+    }
+  }
 
 .post-blog {
   display: flex;
@@ -359,11 +461,52 @@ a :hover {
   width: 50rem;
 }
 
+@media screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .blog-create-form {
+      width: 10rem;
+      left: 3rem;
+    }
+
+    .individual-blog-name p {
+      min-width: 18rem;
+      text-align: justify;
+    }
+    
+    .edit-button-blog {
+      position: absolute;
+      right: 16.5rem;
+      top: 1.2rem;
+    }
+    
+}
+
 /* Footer-Section */
 
 #footer-section {
   background-color: #292b2c;
   min-height: 3rem;
   color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 1.5rem;
 }
 
+
+@media screen 
+  and (min-device-width: 350px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+
+    #footer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.8rem;
+      padding-top: 0.5rem;
+    }
+  }
