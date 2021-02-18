@@ -224,6 +224,7 @@ a :hover {
   margin-top: 2rem;
   color: rgba(0, 0, 0, 0.712);
   min-height: 80vh;
+  margin-bottom: 5rem;
 }
 
 .individual-blog {
@@ -241,13 +242,20 @@ a :hover {
   width: 80%;
 }
 
+
+
 .blog-post-button {
   padding: 0.5rem 2rem;
   margin-left: 1rem;
 }
 
 .individual-blog-name p {
-  font-size: 1rem;
+  font-size: 1.2rem;
+}
+
+.individual-blog-name h5 {
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .individual-blog-buttons {
@@ -272,7 +280,7 @@ a :hover {
 
 .blog-create-form {
   position: fixed;
-  bottom: 12rem;
+  bottom: 11rem;
   width: 50rem;
 }
 
