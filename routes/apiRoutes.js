@@ -295,8 +295,10 @@ router.get(
     let thisBlogId = req.params.thisid;
     let result = req.session.user;
 
+
     BlogModel.findById(thisBlogId)
       .then((someBlogValue) => {
+        // console.log(someBlogValue);
         res.render("blog-update", {
           airDate,
           epId,
@@ -324,7 +326,7 @@ router.post(
     let seasonName = req.params.season;
     let thisBlogId = req.params.thisid;
 
-    const { newComment } = req.body;
+    const { newComment, newForecastComment } = req.body;
     let editedComment = {
       comment: newComment,
     };
