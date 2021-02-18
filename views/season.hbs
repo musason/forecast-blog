@@ -7,7 +7,7 @@
     {{#each episodesData}}
     <div>
       <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}/{{this.season_number}}">
-      <h4>{{this.name}}</h4>
+      <div><h6>S{{this.season_number}}E{{this.episode_number}}: </h6><h4>{{this.name}}</h4></div>
       </a>
        {{#if foreCast}}<h6>Blog</h6>{{else}}<h6>Forecast</h6>{{/if}}
     </div> 
