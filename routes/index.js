@@ -90,8 +90,6 @@ router.get("/profile/:id", checkLoggin, (req, res, next) => {
   BlogModel.find()
     .populate("episodeId")
     .then((userResult) => {
-
-      console.log(userResult)
       userResult.forEach((ele) => {
         if (JSON.stringify(ele.myUserId) == JSON.stringify(result._id)) {
           ele.blogWriter = true;
