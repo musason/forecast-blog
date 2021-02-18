@@ -131,6 +131,11 @@ router.get(
                 ) {
                   ele.blogOwner = true;
                 }
+                ele.airDate = airDate;
+                ele.epId = epId;
+                ele.eppName = eppName;
+                ele.eppShowName = eppShowName;
+                ele.seasonName = seasonName;
               });
               if (airDate <= today) {
                 res.render("tvblog", {
@@ -293,7 +298,6 @@ router.get(
   "/:airdate/:epid/:name/:showname/:season/:thisid/edit",
   checkLoggin,
   (req, res, next) => {
-    // const { airDate, epId, eppName, eppShowName, seasonName, blogDatabaseId } = req.params;
     let airDate = req.params.airdate;
     let epId = req.params.epid;
     let eppName = req.params.name;
@@ -302,9 +306,9 @@ router.get(
     let thisBlogId = req.params.thisid;
     let result = req.session.user;
 
-    console.log(thisBlogId);
     BlogModel.findById(thisBlogId)
       .then((someBlogValue) => {
+        console.log(airDate)
         res.render("blog-update", {
           airDate,
           epId,

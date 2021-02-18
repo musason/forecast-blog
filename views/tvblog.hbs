@@ -19,17 +19,19 @@
       <div class="blog-name">BLOG</div>
       <h5>{{myNickname}}</h5>
       <p>{{this.comment}}</p>
-      <p>{{dateOfCreation}}</p>
+      <p id="date-of-creation">Posted@: {{dateOfCreation}}</p>
       {{/if}}
       </div>
       {{#if this.blogOwner}}
       <div class="individual-blog-buttons">
+        {{#unless this.forecastcomment}}
         <a href="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{this._id}}/edit">
           <button type="button" class="btn edit-button-blog btn-outline-secondary">Edit</button>
         </a>
         <form action="/{{this._id}}/delete" method="POST">
           <button type="submit" class="btn btn-outline-danger">Delete</button>
         </form>
+        {{/unless}}
       </div> 
       {{/if}}
     </div>

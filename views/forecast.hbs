@@ -8,14 +8,13 @@
 <div class="blog-individual">
   {{#if blogValue}}
     {{#each blogValue}}
-    {{!-- {{log this}} --}}
         <div class="individual-blog">
       <div class="individual-blog-name">
     {{#if this.forecastcomment}}
       <div class="forecast-name">Forecast</div>
       <h5>{{myNickname}}</h5>
       <p>{{this.forecastcomment}}</p>
-      <p>{{dateOfCreation}}</p>
+      <p id="date-of-creation">Posted@: {{dateOfCreation}}</p>
       {{else}}
       <div class="blog-name"></div>
       <h5>{{myNickname}}</h5>

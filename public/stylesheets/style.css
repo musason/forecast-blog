@@ -369,7 +369,7 @@ a :hover {
 
 .individual-blog {
   position: relative;
-  margin: 2rem 35rem;
+  margin: 2rem 40rem;
   border: 1px solid rgb(58, 144, 165);
   padding: 2rem;
   border-radius: 5px;
@@ -382,6 +382,7 @@ a :hover {
 
 .individual-blog-name {
   width: 80%;
+
 }
 
 @media screen 
@@ -407,6 +408,7 @@ a :hover {
 
 .individual-blog-name p {
   min-width: 20rem;
+  max-width:80rem;
 }
 
 .blog-post-button {
@@ -510,6 +512,11 @@ a :hover {
   padding-top: 1.5rem;
 }
 
+/*Date of Creation*/
+
+#date-of-creation{
+    font-size: 0.7rem;
+}
 
 @media screen 
   and (min-device-width: 350px) 
