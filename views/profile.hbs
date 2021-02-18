@@ -1,18 +1,20 @@
 
-<h1>Hello {{result.nickname}}, Welcome to your profile</h1>
+<div class="profile-main">
+  <h1>Hello {{result.nickname}}, Welcome to your profile</h1>
 
-<h2>Your Blogs</h2>
-<div>
-  {{#each userResult}}
-  {{#if blogWriter}}
-    <h3>{{this.episodeId.seriesName}} Season: {{this.episodeId.seriesSeason}} Episode: {{this.episodeId.seriesEpisode}}</h3>
-    <h4>{{this.comment}}</h4>
-    <a href="{{this.episodeId.blogUrl}}">View Episode Page</a>
-    {{log this.episodeId.blogUrl}}
-    {{/if}}
-  {{/each}}
+  <h2>Your Blogs</h2>
+  <div>
+    {{#each userResult}}
+      <div class="profile-blog-list">
+        {{#if blogWriter}}
+          <h3>{{this.episodeId.seriesName}} - Season:{{this.episodeId.seriesSeason}} - Episode:{{this.episodeId.seriesEpisode}}</h3>
+          <h4>{{this.comment}}</h4>
+          <a href="{{this.episodeId.blogUrl}}">View Episode Page</a>
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
 </div>
-
 
 
 
