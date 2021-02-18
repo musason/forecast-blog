@@ -9,14 +9,13 @@
   {{#if blogValue}}
     {{#each blogValue}}
         <div class="individual-blog">
-      
+      <div class="blog-name">Forecast</div>
       <div class="individual-blog-name">
     {{#if this.forecastcomment}}
-    <div class="blog-name">Forecast</div>
       <h5>{{myNickname}}</h5>
       <p>{{this.forecastcomment}}</p>
       {{else}}
-      <div class="blog-name">BLOG</div>
+      <div class="blog-name"></div>
       <h5>{{myNickname}}</h5>
       <p>{{this.comment}}</p>
       {{/if}}
