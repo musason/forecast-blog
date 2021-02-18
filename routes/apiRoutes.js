@@ -28,7 +28,6 @@ router.post("/search", checkLoggin, (req, res, next) => {
         `https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`
       )
       .then((tvResult) => {
-        console.log(tvResult.data);
         let result = req.session.user;
         let searchResult = tvResult.data.results;
         res.render("search", { searchResult, result });
@@ -302,7 +301,6 @@ router.get(
     let thisBlogId = req.params.thisid;
     let result = req.session.user;
 
-    console.log(thisBlogId);
     BlogModel.findById(thisBlogId)
       .then((someBlogValue) => {
         res.render("blog-update", {
