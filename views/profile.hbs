@@ -5,9 +5,10 @@
 <div>
   {{#each userResult}}
   {{#if blogWriter}}
-    <h3>{{this.episodeId.seriesName}} Season:{{this.episodeId.seriesSeason}} Episode:{{this.episodeId.seriesEpisode}}</h3>
+    <h3>{{this.episodeId.seriesName}} Season: {{this.episodeId.seriesSeason}} Episode: {{this.episodeId.seriesEpisode}}</h3>
     <h4>{{this.comment}}</h4>
     <a href="{{this.episodeId.blogUrl}}">View Episode Page</a>
+    {{log this.episodeId.blogUrl}}
     {{/if}}
   {{/each}}
 </div>
