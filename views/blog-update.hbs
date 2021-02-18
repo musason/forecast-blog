@@ -6,9 +6,9 @@
 </div>
 
 <div>
+{{log someBlogValue._id}}
 <form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{someBlogValue._id}}/edit" method="POST">
-    
-    <input name="newComment" value="{{someBlogValue.comment}}" class="form-control" id="exampleFormControlTextarea1" placeholder="Write your Blog here" type="text">
+    <input name="newComment" value="{{someBlogValue.comment}}" class="edit-input form-control " id="exampleFormControlTextarea1" placeholder="Write your Blog here" type="text">
     <button type="submit" class="btn btn-outline-dark">Post</button>
 </form>
 </div>

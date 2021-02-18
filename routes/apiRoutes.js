@@ -82,6 +82,12 @@ router.get("/search/:id/:season/:showname", checkLoggin, (req, res, next) => {
         }
       });
 
+      episodesData.forEach((e) => {
+        if(!e.air_date) {
+          e.dateFalse = true
+        }
+      })
+
       episodesData.forEach((e) => (e.still_path = seriesNewName));
       res.render("season", { episodesData, seasonData, result });
     })

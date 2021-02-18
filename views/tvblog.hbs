@@ -4,7 +4,7 @@
 <h2>Season {{seasonName}}</h2>
 <h3>{{eppName}}</h3>
 <h4>Release: {{airDate}}</h4>
-<div>
+<div class="blog-individual">
   {{#if blogValue}}
     {{#each blogValue}}
     <div class="individual-blog">
@@ -21,9 +21,11 @@
       </div>
       {{#if this.blogOwner}}
       <div class="individual-blog-buttons">
+        {{#unless this.forecastcomment}}
         <a href="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{this._id}}/edit">
           <button type="button" class="btn btn-outline-secondary">Edit</button>
         </a>
+        {{/unless}}
         <form action="/{{this._id}}/delete" method="POST">
           <button type="submit" class="btn btn-outline-danger">Delete</button>
         </form>
