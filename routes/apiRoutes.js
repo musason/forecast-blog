@@ -28,7 +28,7 @@ router.post("/search", checkLoggin, (req, res, next) => {
         `https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`
       )
       .then((tvResult) => {
-        console.log(tvResult.data)
+        console.log(tvResult.data);
         let result = req.session.user;
         let searchResult = tvResult.data.results;
         res.render("search", { searchResult, result });
@@ -84,10 +84,10 @@ router.get("/search/:id/:season/:showname", checkLoggin, (req, res, next) => {
       });
 
       episodesData.forEach((e) => {
-        if(!e.air_date) {
-          e.dateFalse = true
+        if (!e.air_date) {
+          e.dateFalse = true;
         }
-      })
+      });
 
       episodesData.forEach((e) => (e.still_path = seriesNewName));
       res.render("season", { episodesData, seasonData, result });
@@ -118,12 +118,12 @@ router.get(
           BlogModel.find({ episodeId: newEpId })
             .then((blogValueFromMongo) => {
               const blogValue = JSON.parse(JSON.stringify(blogValueFromMongo));
-
+              //Adjusting timestamps Format
               blogValue.forEach((e) => {
-                if(e.createdAt){
+                if (e.createdAt) {
                   e.dateOfCreation = e.createdAt.slice(0, -8);
                 }
-              })
+              });
 
               blogValue.forEach((ele) => {
                 if (
@@ -162,9 +162,7 @@ router.get(
               }
             })
             .catch(() => {});
-        }
-        else {
-
+        } else {
           if (airDate <= today) {
             res.render("tvblog", {
               eppName,
@@ -206,6 +204,7 @@ router.post(
 
     EpisodeModel.findOne({ episodeId: epid })
       .then((epFindResult) => {
+        console.log(epFindResult);
         if (epFindResult) {
           if (airdate <= today) {
             BlogModel.create({
@@ -215,11 +214,12 @@ router.post(
               myNickname: result.nickname,
             })
               .then((value) => {
-                res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`);
+                res.redirect(
+                  `/${airdate}/${epid}/${name}/${showname}/${season}`
+                );
               })
-              .catch(() => { });
-          }
-          else {
+              .catch(() => {});
+          } else {
             BlogModel.create({
               forecastcomment,
               episodeId: epFindResult._id,
@@ -235,6 +235,7 @@ router.post(
           }
         } else {
           EpisodeModel.create({
+            myNickname: result.nickname,
             episodeId: epid,
             seriesName: showname,
             seriesSeason: season,
@@ -242,31 +243,9 @@ router.post(
             blogUrl: `/${airdate}/${epid}/${name}/${showname}/${season}`,
           })
             .then((epFindResult) => {
-
-              // const createBlogValue = JSON.parse(JSON.stringify(epFindResult));
-
-              // createBlogValue.forEach((e) => {
-              //   if (e.createdAt) {
-              //     e.dateOfCreation = e.createdAt.slice(0, -8);
-              //   }
-              // });
-
-              // createBlogValue.forEach((ele) => {
-              //   console.log(ele)
-              //   if (
-              //     JSON.stringify(ele.myUserId) == JSON.stringify(result._id)
-              //   ) {
-              //     ele.blogOwner = true;
-              //   }
-              //   ele.airDate = airDate;
-              //   ele.epId = epId;
-              //   ele.eppName = eppName;
-              //   ele.eppShowName = eppShowName;
-              //   ele.seasonName = seasonName;
-              // });
-
               if (airdate <= today) {
                 BlogModel.create({
+                  myNickname: result.nickname,
                   comment,
                   episodeId: epFindResult._id,
                   myUserId: result._id,
@@ -279,6 +258,7 @@ router.post(
                   .catch(() => {});
               } else {
                 BlogModel.create({
+                  myNickname: result.nickname,
                   forecastcomment,
                   episodeId: epFindResult._id,
                   myUserId: result._id,
@@ -318,7 +298,6 @@ router.get(
   "/:airdate/:epid/:name/:showname/:season/:thisid/edit",
   checkLoggin,
   (req, res, next) => {
-    // const { airDate, epId, eppName, eppShowName, seasonName, blogDatabaseId } = req.params;
     let airDate = req.params.airdate;
     let epId = req.params.epid;
     let eppName = req.params.name;
@@ -327,10 +306,9 @@ router.get(
     let thisBlogId = req.params.thisid;
     let result = req.session.user;
 
-console.log(thisBlogId);
     BlogModel.findById(thisBlogId)
       .then((someBlogValue) => {
-        // console.log(someBlogValue);
+        console.log(airDate)
         res.render("blog-update", {
           airDate,
           epId,
