@@ -6,9 +6,13 @@
 </div>
 
 <div>
-{{log someBlogValue._id}}
 <form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{someBlogValue._id}}/edit" method="POST">
+    
+    {{#if someBlogValue.comment}}
     <input name="newComment" value="{{someBlogValue.comment}}" class="edit-input form-control " id="exampleFormControlTextarea1" placeholder="Write your Blog here" type="text">
+    {{else}}
+    <input name="newForecastComment" value="{{someBlogValue.forecastcomment}}" class="edit-input form-control " id="exampleFormControlTextarea1" placeholder="Write your Blog here" type="text">    
+    {{/if}}
     <button type="submit" class="btn btn-outline-dark">Post</button>
 </form>
 </div>

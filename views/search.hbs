@@ -15,6 +15,7 @@
 
 <div class="search-result">
 {{#each searchResult}}
+{{#if this.poster_path}}
 <div class="card" style="width: 18rem;">
   <img src="https://image.tmdb.org/t/p/w185{{this.poster_path}}" class="card-img-top">
   <div class="card-body">
@@ -22,6 +23,7 @@
     <a href="/search/{{this.id}}" class="btn btn-primary">Check Episodes</a>
   </div>
 </div>
+{{/if}}
 {{/each}}
 </div>
 

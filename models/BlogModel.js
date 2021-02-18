@@ -21,7 +21,10 @@ const BlogSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.String,
     ref: 'nick'
   }
-});
+}, {
+  timestamps: true
+})
 
 const BlogModel = mongoose.model("blog", BlogSchema);
 module.exports = BlogModel;
+
