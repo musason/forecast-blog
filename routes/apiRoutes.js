@@ -28,6 +28,7 @@ router.post("/search", checkLoggin, (req, res, next) => {
         `https://api.themoviedb.org/3/search/tv?api_key=${key}&language=en-US&page=1&query=${seriesName}&include_adult=false`
       )
       .then((tvResult) => {
+        console.log(tvResult.data)
         let result = req.session.user;
         let searchResult = tvResult.data.results;
         res.render("search", { searchResult, result });
@@ -70,8 +71,24 @@ router.get("/search/:id/:season/:showname", checkLoggin, (req, res, next) => {
       `https://api.themoviedb.org/3/tv/${tvid}/season/${seaNum}?api_key=${key}`
     )
     .then((seasonResult) => {
+      let today = new Date();
+      today = JSON.stringify(today);
+      today = today.slice(1, 11);
       let episodesData = seasonResult.data.episodes;
       let seasonData = seasonResult.data;
+
+      episodesData.forEach((ele) => {
+        if (ele.air_date <= today) {
+          ele.foreCast = true;
+        }
+      });
+
+      episodesData.forEach((e) => {
+        if(!e.air_date) {
+          e.dateFalse = true
+        }
+      })
+
       episodesData.forEach((e) => (e.still_path = seriesNewName));
       res.render("season", { episodesData, seasonData, result });
     })
@@ -94,76 +111,84 @@ router.get(
     today = JSON.stringify(today);
     today = today.slice(1, 11);
 
-      
-      EpisodeModel.findOne({ episodeId: epId })
-        .then((episodeResult) => {
-          if (episodeResult) {
-            let newEpId = episodeResult._id;
-            BlogModel.find({ episodeId: newEpId })
-              .then((blogValueFromMongo) => {
-                const blogValue = JSON.parse(JSON.stringify(blogValueFromMongo));
-                blogValue.forEach((ele) => {
-                  if (JSON.stringify(ele.myUserId) == JSON.stringify(result._id)) {
-                    ele.blogOwner = true;
-                  }
-                  ele.airDate = airDate;
-                  ele.epId = epId;
-                  ele.eppName = eppName;
-                  ele.eppShowName = eppShowName;
-                  ele.seasonName = seasonName;
-                });
-                if (airDate <= today) {
-                  res.render("tvblog", {
-                    eppName,
-                    eppShowName,
-                    episodeResult,
-                    seasonName,
-                    epId,
-                    airDate,
-                    blogValue,
-                    result,
-                  });
-                }
-                else {
-                  res.render("forecast", {
-                    eppName,
-                    eppShowName,
-                    episodeResult,
-                    seasonName,
-                    epId,
-                    airDate,
-                    blogValue,
-                    result,
-                  });
+    EpisodeModel.findOne({ episodeId: epId })
+      .then((episodeResult) => {
+        if (episodeResult) {
+          let newEpId = episodeResult._id;
+          BlogModel.find({ episodeId: newEpId })
+            .then((blogValueFromMongo) => {
+              const blogValue = JSON.parse(JSON.stringify(blogValueFromMongo));
+
+              blogValue.forEach((e) => {
+                if(e.createdAt){
+                  e.dateOfCreation = e.createdAt.slice(0, -8);
                 }
               })
-              .catch(() => { });
-          } else {
-            if (airDate <= today) {
-              res.render("tvblog", {
-                eppName,
-                eppShowName,
-                episodeResult,
-                seasonName,
-                epId,
-                airDate,
-                result,
+
+              blogValue.forEach((ele) => {
+                if (
+                  JSON.stringify(ele.myUserId) == JSON.stringify(result._id)
+                ) {
+                  ele.blogOwner = true;
+                }
+                ele.airDate = airDate;
+                ele.epId = epId;
+                ele.eppName = eppName;
+                ele.eppShowName = eppShowName;
+                ele.seasonName = seasonName;
               });
-            }
-            else {
-               res.render("forecast", {
-                 eppName,
-                 eppShowName,
-                 episodeResult,
-                 seasonName,
-                 epId,
-                 airDate,
-                 result,
-               });
-            }
+              if (airDate <= today) {
+                res.render("tvblog", {
+                  eppName,
+                  eppShowName,
+                  episodeResult,
+                  seasonName,
+                  epId,
+                  airDate,
+                  blogValue,
+                  result,
+                });
+              } else {
+                res.render("forecast", {
+                  eppName,
+                  eppShowName,
+                  episodeResult,
+                  seasonName,
+                  epId,
+                  airDate,
+                  blogValue,
+                  result,
+                });
+              }
+            })
+            .catch(() => {});
+        }
+        else {
+
+          if (airDate <= today) {
+            res.render("tvblog", {
+              eppName,
+              eppShowName,
+              episodeResult,
+              seasonName,
+              epId,
+              airDate,
+              result,
+            });
+          } else {
+            res.render("forecast", {
+              eppName,
+              eppShowName,
+              episodeResult,
+              seasonName,
+              epId,
+              airDate,
+              result,
+            });
           }
-        })
-        .catch(() => {});
+        }
+      })
+      .catch(() => {});
   }
 );
 
@@ -171,44 +196,100 @@ router.post(
   "/:airdate/:epid/:name/:showname/:season",
   checkLoggin,
   (req, res, next) => {
-    const { comment } = req.body;
+    const { comment, forecastcomment } = req.body;
     const { airdate, epid, name, showname, season } = req.params;
     const pageResult = { airdate, epid, name, showname, season };
     let result = req.session.user;
+    let today = new Date();
+    today = JSON.stringify(today);
+    today = today.slice(1, 11);
 
     EpisodeModel.findOne({ episodeId: epid })
       .then((epFindResult) => {
         if (epFindResult) {
-          BlogModel.create({
-            comment,
-            episodeId: epFindResult._id,
-            myUserId: result._id,
-            myNickname: result.nickname,
-          })
-            .then((value) => {
-              res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`);
+          if (airdate <= today) {
+            BlogModel.create({
+              comment,
+              episodeId: epFindResult._id,
+              myUserId: result._id,
+              myNickname: result.nickname,
             })
-            .catch(() => {});
+              .then((value) => {
+                res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`);
+              })
+              .catch(() => { });
+          }
+          else {
+            BlogModel.create({
+              forecastcomment,
+              episodeId: epFindResult._id,
+              myUserId: result._id,
+              myNickname: result.nickname,
+            })
+              .then((value) => {
+                res.redirect(
+                  `/${airdate}/${epid}/${name}/${showname}/${season}`
+                );
+              })
+              .catch(() => {});
+          }
         } else {
           EpisodeModel.create({
             episodeId: epid,
             seriesName: showname,
             seriesSeason: season,
             seriesEpisode: name,
-            blogUrl: `/${airdate}/${epid}/${name}/${showname}/${season}`
+            blogUrl: `/${airdate}/${epid}/${name}/${showname}/${season}`,
           })
             .then((epFindResult) => {
-              BlogModel.create({
-                comment,
-                episodeId: epFindResult._id,
-                myUserId: result._id,
-              })
-                .then(() => {
-                  res.redirect(
-                    `/${airdate}/${epid}/${name}/${showname}/${season}`
-                  );
+
+              // const createBlogValue = JSON.parse(JSON.stringify(epFindResult));
+
+              // createBlogValue.forEach((e) => {
+              //   if (e.createdAt) {
+              //     e.dateOfCreation = e.createdAt.slice(0, -8);
+              //   }
+              // });
+
+              // createBlogValue.forEach((ele) => {
+              //   console.log(ele)
+              //   if (
+              //     JSON.stringify(ele.myUserId) == JSON.stringify(result._id)
+              //   ) {
+              //     ele.blogOwner = true;
+              //   }
+              //   ele.airDate = airDate;
+              //   ele.epId = epId;
+              //   ele.eppName = eppName;
+              //   ele.eppShowName = eppShowName;
+              //   ele.seasonName = seasonName;
+              // });
+
+              if (airdate <= today) {
+                BlogModel.create({
+                  comment,
+                  episodeId: epFindResult._id,
+                  myUserId: result._id,
                 })
-                .catch(() => {});
+                  .then(() => {
+                    res.redirect(
+                      `/${airdate}/${epid}/${name}/${showname}/${season}`
+                    );
+                  })
+                  .catch(() => {});
+              } else {
+                BlogModel.create({
+                  forecastcomment,
+                  episodeId: epFindResult._id,
+                  myUserId: result._id,
+                })
+                  .then(() => {
+                    res.redirect(
+                      `/${airdate}/${epid}/${name}/${showname}/${season}`
+                    );
+                  })
+                  .catch(() => {});
+              }
             })
             .catch(() => {});
         }
@@ -246,8 +327,10 @@ router.get(
     let thisBlogId = req.params.thisid;
     let result = req.session.user;
 
+console.log(thisBlogId);
     BlogModel.findById(thisBlogId)
       .then((someBlogValue) => {
+        // console.log(someBlogValue);
         res.render("blog-update", {
           airDate,
           epId,
@@ -275,22 +358,37 @@ router.post(
     let seasonName = req.params.season;
     let thisBlogId = req.params.thisid;
 
-    const { newComment } = req.body;
+    const { newComment, newForecastComment } = req.body;
     let editedComment = {
       comment: newComment,
     };
 
-    BlogModel.findByIdAndUpdate(thisBlogId, editedComment)
-      .then(() => {
-        res.redirect(
-          `/${airDate}/${epId}/${eppName}/${eppShowName}/${seasonName}`
-        );
-      })
-      .catch((err) => {
-        next(err);
-      });
+    let editedForcastComment = {
+      forecastcomment: newForecastComment,
+    };
+
+    if (newComment) {
+      BlogModel.findByIdAndUpdate(thisBlogId, editedComment)
+        .then(() => {
+          res.redirect(
+            `/${airDate}/${epId}/${eppName}/${eppShowName}/${seasonName}`
+          );
+        })
+        .catch((err) => {
+          next(err);
+        });
+    } else {
+      BlogModel.findByIdAndUpdate(thisBlogId, editedForcastComment)
+        .then(() => {
+          res.redirect(
+            `/${airDate}/${epId}/${eppName}/${eppShowName}/${seasonName}`
+          );
+        })
+        .catch((err) => {
+          next(err);
+        });
+    }
   }
 );
-
 
 module.exports = router;

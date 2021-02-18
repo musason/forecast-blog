@@ -3,28 +3,49 @@
 <h2>{{eppShowName}}</h2>
 <h2>Season {{seasonName}}</h2>
 <h3>{{eppName}}</h3>
+<h4>Release: {{airDate}}</h4>
 <div class="blog-individual">
   {{#if blogValue}}
     {{#each blogValue}}
+    <div class="individual-blog">
+      <div class="individual-blog-name">
+    {{#if this.forecastcomment}}
+          <div class="blog-name">Forecast</div>
+      <h5>{{myNickname}}</h5>
+      <p>{{this.forecastcomment}}</p>
+      {{else}}
+      <div class="blog-name">BLOG</div>
       <h5>{{myNickname}}</h5>
       <p>{{this.comment}}</p>
+      {{/if}}
+      </div>
       {{#if this.blogOwner}}
-      <div>
+      <div class="individual-blog-buttons">
+        {{#unless this.forecastcomment}}
         <a href="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{this._id}}/edit">
           <button type="button" class="btn btn-outline-secondary">Edit</button>
         </a>
+        {{/unless}}
         <form action="/{{this._id}}/delete" method="POST">
-          <button type="button" class="btn btn-outline-danger">Delete</button>
+          <button type="submit" class="btn btn-outline-danger">Delete</button>
         </form>
       </div> 
       {{/if}}
+    </div>
     {{/each}}
   {{/if}}
-</div class="blog-create-form">
+</div>
+
+
+<div class="blog-create-form">
   <form action="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}" method="POST">
-  <div class="form-group">
-      <textarea name="comment" class="form-control" id="exampleFormControlTextarea1" placeholder="Write your Blog here"  rows="3"></textarea>
+  <div class="post-blog">
+    <div class="form-group">
+        <textarea name="comment" class="form-control" style="min-width: 100%" id="exampleFormControlTextarea1" placeholder="Write your Blog here"  rows="3"></textarea>
+    </div>
+    <div>
+        <button type="submit" class="btn blog-post-button btn-outline-dark">Post</button>
+    </div>
   </div>
-      <button type="submit" class="btn btn-outline-dark">Post</button>
   </form>
 </div>

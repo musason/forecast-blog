@@ -8,5 +8,6 @@ const EpisodeSchema = new mongoose.Schema({
   blogUrl: String
 });
 
+
 const EpisodeModel = mongoose.model("episode", EpisodeSchema);
 module.exports = EpisodeModel;

@@ -18,6 +18,7 @@ let key = process.env.API_KEY;
 router.get('/tvblog', checkLoggin, (req, res, next) => {
   let result = req.session.user;
   axios.get(
+    
     `https://api.themoviedb.org/3/tv/popular?api_key=${key}&language=en-US&page=1`
   )
     .then((popularShow) => {
@@ -29,6 +30,22 @@ router.get('/tvblog', checkLoggin, (req, res, next) => {
     })
 
 })
+
+router.get("/forecast", checkLoggin, (req, res, next) => {
+  let result = req.session.user;
+  axios
+
+    .get(
+      `https://api.themoviedb.org/3/tv/on_the_air?api_key=${key}&language=en-US&page=1`
+    )
+    .then((forecastSearch) => {
+      let forcSearchData = forecastSearch.data.results;
+      res.render("forecast-search", { result, forcSearchData });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 
 
 module.exports = router;

@@ -1,10 +1,31 @@
-<div>
-  <img src="https://image.tmdb.org/t/p/w185{{seasonData.poster_path}}" alt="">
+<div class="season-main">
+  <div>
+    <img src="https://image.tmdb.org/t/p/w185{{seasonData.poster_path}}" alt="">
+  </div>
+  <h1>{{seasonData.name}}</h1>
+  <div class="season-flex">
+    {{#each episodesData}}
+    <div class="episode-display">
+      {{#if dateFalse}}
+        <h6>Episode soon available</h6>
+      {{else}}
+      <div class="episode-display-name">
+        <div class="episode-dispaly-name-se">
+          <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}/{{this.season_number}}">
+          <div><h6>S{{this.season_number}}E{{this.episode_number}}: </h6></div>
+          </a>
+        </div>
+        <div class="episode-dispaly-name-blog">
+          {{#if foreCast}}<h6 class="episode-dispaly-name-blog-1">Blog</h6>{{else}}<h6 class="episode-dispaly-name-blog-2">Forecast</h6>{{/if}}
+        </div>
+        <div>
+          <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}/{{this.season_number}}">
+          <h4>{{this.name}}</h4>
+          </a>
+        </div>
+      </div> 
+      {{/if}}
+    </div>
+    {{/each}} 
+  </div>
 </div>
-<h1>{{seasonData.name}}</h1>
-
-{{#each episodesData}}
-  <a href="/{{this.air_date}}/{{this.id}}/{{this.name}}/{{this.still_path}}/{{this.season_number}}">
-  <h3>{{this.name}}</h3>
-  </a> 
-{{/each}}
