@@ -3,20 +3,20 @@
   <h1>Hello {{result.nickname}}, Welcome to your profile</h1>
 
   <h2>Your Blogs</h2>
-  <div>
+ 
     {{#each userResult}}
+    {{#if blogWriter}}
       <div class="profile-blog-list">
-        {{#if blogWriter}}
+        
           <h4>Series: {{this.episodeId.seriesName}} - Season:{{this.episodeId.seriesSeason}} - Episode:{{this.episodeId.seriesEpisode}}</h4>
           <p>{{this.comment}}</p>
           <a href="{{this.episodeId.blogUrl}}">
             <button type="button" class="btn btn-outline-secondary">View Episode Page</button>  
           </a>
-        {{/if}}
       </div>
+      {{/if}}
     {{/each}}
-  </div>
-</div>
+
 
 
 
