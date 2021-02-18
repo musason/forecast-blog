@@ -42,7 +42,7 @@ a :hover {
   flex-direction: column;
   align-items: center;
   margin-top: 5rem;
-  min-height: 80vh;
+  min-height: 90vh;
 }
 
 .singin-main form input{
@@ -98,6 +98,7 @@ a :hover {
   text-align: center;
   border: 1px solid;
   padding: 2rem;
+  border-radius: 5px;
 }
 
 .profile-blog-list p {
@@ -107,6 +108,11 @@ a :hover {
 }
 
 /* Edit Page */
+
+#try {
+  width: 20rem;
+  height: 200rem;
+}
 
 .blog-edit-main {
   min-height: 92vh;
@@ -119,7 +125,7 @@ a :hover {
 /* Search Section */
 
 .search-main {
-  min-height: 85vh;
+  min-height: 90vh;
 }
 
 .search-form {
@@ -159,7 +165,7 @@ a :hover {
   margin-top: 2rem;
   text-align: center;
   margin-bottom: 5rem;
-  min-height: 75vh;
+  min-height: 90vh;
 }
 
 .season-main h1 {
@@ -193,11 +199,68 @@ a :hover {
   color: rgba(0, 0, 0, 0.712);
 }
 
-/* Show section - list all the seasons */
+/* Show section - list all the episodes */
 
 .episode-name {
   text-decoration: none;
 }
+
+.episode-display {
+  border: 1px solid;
+  margin-top: 1rem;
+  margin-left: 45rem;
+  margin-right: 45rem;
+}
+
+@media screen 
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+    .episode-display {
+      margin-left: 25rem;
+      margin-right: 25rem;
+    }
+}
+
+.episode-display-name {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.episode-display-name h4 {
+  padding-top: 1rem;
+}
+
+.episode-dispaly-name-se {
+  position: absolute;
+  top: 0.2rem;
+  left: 1.2rem;
+}
+
+.episode-dispaly-name-blog {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.6rem;
+}
+
+.episode-dispaly-name-blog-1 {
+  border: 0.5px solid;
+  padding: 3px 10px;
+  border-radius: 10px;
+  background: rgba(9, 102, 97, 0.747);
+  color: white;
+}
+
+.episode-dispaly-name-blog-2 {
+  border: 0.5px solid;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgb(52, 53, 52);
+  color: white;
+} 
 
 /* About Section */
 
@@ -208,7 +271,7 @@ a :hover {
   align-items: center;
   margin-top: 2rem;
   text-align: justify;
-  min-height: 85vh;
+  min-height: 90vh;
 }
 
 .about-section p {
@@ -240,6 +303,7 @@ a :hover {
   margin: 2rem 40rem;
   border: 1px solid rgb(58, 144, 165);
   padding: 2rem;
+  border-radius: 5px;
 }
 
 .btn-outline-danger {

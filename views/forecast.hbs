@@ -9,7 +9,6 @@
   {{#if blogValue}}
     {{#each blogValue}}
         <div class="individual-blog">
-      
       <div class="individual-blog-name">
     {{#if this.forecastcomment}}
     <div class="blog-name">Forecast</div>
@@ -22,7 +21,7 @@
       {{/if}}
       </div>
       {{#if this.blogOwner}}
-      <div>
+      <div class="individual-blog-buttons">
         <a href="/{{airDate}}/{{epId}}/{{eppName}}/{{eppShowName}}/{{seasonName}}/{{this._id}}/edit">
           <button type="button" class="btn btn-outline-secondary">Edit</button>
         </a>
