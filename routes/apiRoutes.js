@@ -180,24 +180,43 @@ router.post(
   "/:airdate/:epid/:name/:showname/:season",
   checkLoggin,
   (req, res, next) => {
-    const { comment } = req.body;
+    const { comment, forecastcomment } = req.body;
     const { airdate, epid, name, showname, season } = req.params;
     const pageResult = { airdate, epid, name, showname, season };
     let result = req.session.user;
+    let today = new Date();
+    today = JSON.stringify(today);
+    today = today.slice(1, 11);
 
     EpisodeModel.findOne({ episodeId: epid })
       .then((epFindResult) => {
         if (epFindResult) {
-          BlogModel.create({
-            comment,
-            episodeId: epFindResult._id,
-            myUserId: result._id,
-            myNickname: result.nickname,
-          })
-            .then((value) => {
-              res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`);
+          if (airdate <= today) {
+            BlogModel.create({
+              comment,
+              episodeId: epFindResult._id,
+              myUserId: result._id,
+              myNickname: result.nickname,
             })
-            .catch(() => {});
+              .then((value) => {
+                res.redirect(`/${airdate}/${epid}/${name}/${showname}/${season}`);
+              })
+              .catch(() => { });
+          }
+          else {
+            BlogModel.create({
+              forecastcomment,
+              episodeId: epFindResult._id,
+              myUserId: result._id,
+              myNickname: result.nickname,
+            })
+              .then((value) => {
+                res.redirect(
+                  `/${airdate}/${epid}/${name}/${showname}/${season}`
+                );
+              })
+              .catch(() => {});
+          }
         } else {
           EpisodeModel.create({
             episodeId: epid,
@@ -207,17 +226,32 @@ router.post(
             blogUrl: `/${airdate}/${epid}/${name}/${showname}/${season}`,
           })
             .then((epFindResult) => {
-              BlogModel.create({
-                comment,
-                episodeId: epFindResult._id,
-                myUserId: result._id,
-              })
-                .then(() => {
-                  res.redirect(
-                    `/${airdate}/${epid}/${name}/${showname}/${season}`
-                  );
+              if (airdate <= today) {
+                BlogModel.create({
+                  comment,
+                  episodeId: epFindResult._id,
+                  myUserId: result._id,
                 })
-                .catch(() => {});
+                  .then(() => {
+                    res.redirect(
+                      `/${airdate}/${epid}/${name}/${showname}/${season}`
+                    );
+                  })
+                  .catch(() => { });
+              }
+              else {
+                BlogModel.create({
+                  forecastcomment,
+                  episodeId: epFindResult._id,
+                  myUserId: result._id,
+                })
+                  .then(() => {
+                    res.redirect(
+                      `/${airdate}/${epid}/${name}/${showname}/${season}`
+                    );
+                  })
+                  .catch(() => {});
+              }
             })
             .catch(() => {});
         }
