@@ -103,7 +103,4 @@ Links
 Git
 [Repository Link]
 
-[Deploy Link]
-
-
-Slides
+Deploy Link: https://forecast-blog.herokuapp.com/
